@@ -2,16 +2,16 @@ import help
 from imports import *
 
 monster_draw_pile = [
-"Sirene",
-"Pegase",
+"Sirène",
+"Pégase",
 "Geant",
-"Chimere",
+"Chimère",
 "Cyclope",
 "Sphinx",
 "Sylphe",
 "Harpie",
 "Griffon",
-"Les grees",
+"Les grées",
 "Satyre",
 "Kraken",
 "Minautore",
@@ -159,9 +159,9 @@ while server_live:
 						draw_gods(god_list, 5)
 
 						rplayer = []
-						for i in range(PLAYER):
+						for i in range(1,PLAYER+1):
 							rplayer.append(i)
-						for i in range(PLAYER):
+						for i in range(1,PLAYER+1):
 							next_to_play.append(rplayer.pop(random.randrange(len(rplayer))))
 							print("rplayer {}, next_to_play {}".format(rplayer, next_to_play))
 
@@ -209,42 +209,57 @@ while server_live:
 					elif le >= 6:
 						msg_out = help.display(int(msg_in[5:]))
 
-				elif le >= 5 and msg_in[:5] == "order":
+				elif le == 5 and msg_in[:5] == "order":
 					msg_out = str(next_to_play)
+
+				elif le == 11 and msg_in[:11] == "getAuctions":
+					msg_out = str(auctions)
+
 				elif le >= 3 and msg_in[:3] == "auc":
+					try:
+						print(msg_in)
 
-					print(msg_in)
+						msg_in = msg_in[4:]
+						i = 0
+						while msg_in[i] != " ":
+							i+=1
 
-					msg_in = msg_in[4:]
-					i = 0
-					while msg_in[i] != " ":
-						i+=1
+						print(msg_in)
 
-					print(msg_in)
+						god = msg_in[:i]
+						if god in NAMES_ARES:
+							line = 0
+						elif god in NAMES_ZEUS:
+							line = 3
+						elif god in NAMES_ATHENA:
+							line = 2
+						elif god in NAMES_APPOLON:
+							line = 4
+						elif god in NAMES_POSEIDON:
+							line = 1
 
-					god = msg_in[:i]
-					if god in NAMES_ARES:
-						line = 1
-					elif god in NAMES_ZEUS:
-						line = 4
-					elif god in NAMES_ATHENA:
-						line = 3
-					elif god in NAMES_APPOLON:
-						line = 5
-					elif god in NAMES_POSEIDON:
-						line = 2
+						print(line)
 
-					print(line)
+						value = int(msg_in[i:])
+						if game_phase != "auctions":
+							msg_out = "Ce n'est pas la phase d'enchères"
+						elif next_to_play[-1] != client_info[client]["Player ID"]:
+							msg_out = "Ce n'est pas votre tour"
+						elif auctions[line][1] > value or auctions[line][2] == client_info[client]["Player ID"] or value > players[client_info[client]["Player ID"]-1].money:
+							msg_out = "Vous ne pouvez pas jouer ici"
+						else:
+							msg_out = "Vous pariez {} sur le dieu {}".format(value,line)
+							auctions[line] = (client_info[client]["Player ID"]-1, value, auctions[line][0])
+							order.pop()
+							for var in auctions:
+								if var[2] == client_info[client]["Player ID"]:
+									var = (var[0], var[1], 0)
+							if(auctions[line][2] != 0):
+								order.append(auctions[line][2])
 
-					value = int(msg_in[i:])
-					if game_phase != "auctions":
-						msg_out = "Ce n'est pas la phase d'encheres"
-					elif next_to_play[-1] != client_info[client]["Player ID"]:
-						msg_out = "Ce n'est pas votre tour"
-					elif auctions[line][1] > value or auctions[line][3] == client_info[client]["Player ID"] or value > players[client_info[client]["Player ID"]-1].money:
-						msg_out = "Vous ne pouvez pas jouer ici"
-					else:
-						msg_out = "Vous pariez {} sur le dieu {}".format(value,line)
+
+					except IndexError:
+						msg_out = "Syntaxe : auc <dieu> <valeur>"
 
 				elif le == 8 and msg_in == "getPhase":
 					msg_out = "Phase de jeu actuelle : {}".format(game_phase)
