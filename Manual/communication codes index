@@ -1,0 +1,18 @@
+COMMUNICATION CODES PYCLADES
+
+100 - Ok
+110 - Ack
+120 - Connexion accepted
+
+200 - Error
+
+300 - Info
+
+400 - Content
+410 - Shutdown server
+420 - Disconnect
+
+500 - Commentary
+
+600 - Chat message
+610 - Command

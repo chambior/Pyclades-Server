@@ -1,0 +1,11 @@
+auc <dieu> <valeur>|Mise une certaine valeur sur le dieu indiqué.
+balance|Affiche votre nombre de pièces d'or.
+ddos|DDOS le serveur.
+getBoard|Affiche le plateau.
+getGods|Affiche les dieux disponibles et leur ordre.
+getPhase|Affiche la phase de jeu actuelle.
+help <page>|Affiche les commandes disponibles.
+join [numéro]|Prendre le contrôle d'un joueur, spécifié ou automatique.
+order|Affiche l'ordre dans lequel les joueurs doivent jouer.
+start <nombre de joueurs>|Démarre la partie avec le nombre de joueurs indiqué.
+stop|Arrête le serveur.
