@@ -217,14 +217,14 @@ while server_live:
 
 				elif le >= 3 and msg_in[:3] == "auc":
 					try:
-						print(msg_in)
+						#print(msg_in)
 
 						msg_in = msg_in[4:]
 						i = 0
 						while msg_in[i] != " ":
 							i+=1
 
-						print(msg_in)
+						#print(msg_in)
 
 						god = msg_in[:i]
 						if god in NAMES_ARES:
@@ -238,7 +238,7 @@ while server_live:
 						elif god in NAMES_POSEIDON:
 							line = 1
 
-						print(line)
+						#print(line)
 
 						value = int(msg_in[i:])
 						if game_phase != "auctions":
@@ -254,7 +254,7 @@ while server_live:
 							for var in auctions:
 								if var[2] == client_info[client]["Player ID"]:
 									var = (var[0], var[1], 0)
-							if(auctions[line][2] != 0):
+							if(auctions[line][2]):
 								order.append(auctions[line][2])
 
 
@@ -314,8 +314,8 @@ while server_live:
 				client.recv(MAX_PACKET_SIZE)
 
 				for i in range(msg_size+1):
-					print(msg_out[MAX_PACKET_SIZE*i:MAX_PACKET_SIZE*i + MAX_PACKET_SIZE])
-					print('\n')
+					#print(msg_out[MAX_PACKET_SIZE*i:MAX_PACKET_SIZE*i + MAX_PACKET_SIZE])
+					#print('\n')
 					client.send(msg_out[MAX_PACKET_SIZE*i:MAX_PACKET_SIZE*i + MAX_PACKET_SIZE].encode('utf-8'))
 					client.recv(MAX_PACKET_SIZE)
 
