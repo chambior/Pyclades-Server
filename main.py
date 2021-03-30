@@ -250,12 +250,12 @@ while server_live:
 						else:
 							msg_out = "Vous pariez {} sur le dieu {}".format(value,line)
 							auctions[line] = (client_info[client]["Player ID"]-1, value, auctions[line][0])
-							order.pop()
+							next_to_play.pop()
 							for var in auctions:
 								if var[2] == client_info[client]["Player ID"]:
 									var = (var[0], var[1], 0)
 							if(auctions[line][2]):
-								order.append(auctions[line][2])
+								next_to_play.append(auctions[line][2])
 
 
 					except IndexError:
@@ -301,6 +301,49 @@ while server_live:
 
 				elif le >= 7 and msg_in == "getGods":
 					msg_out = str(god_list)
+
+				elif le == 8 and msg_in == "getPhase":
+					msg_out = "Phase de jeu actuelle : {}".format(game_phase)
+
+				elif le >= 6 and msg_in == "moveTo":
+					msg_out = ""
+				elif le >= 5 and msg_in == "build":
+					msg_out = ""
+				elif le >= 4 and msg_in == "city":
+					msg_in = msg_in[5:].split(" ")
+					if(msg_in[1] == "phil"):
+						if(players[client_info[client]["Player ID"]-1].phil == 4):
+							check = 0
+							for island in islands:
+								if(island.id == msg_in[0] and island.player == players[client_info[client]["Player ID"]-1]):
+									for i in range(2):
+										island.buildings[i] = 5
+									msg_out = "Ville construite sur l'île ", island.id
+									check = 1
+							if(check == 0):
+								msg_out = "Cette ile ne vous appartient pas ou n'existe pas"
+					elif(msg_in[1] == "bat"):
+						if(len(msg_in) == 10):
+							batiments = []
+							idIle = []
+							for i in range(1,5):
+								batiments.append(msg_in[i*2])
+								idIle.append(msg_in[i*2+1])
+							for i in range(len(batiments)-1):
+								if batiments[i] in batiments[i+1:]:
+									msg_out = "Il y a 2 batiments identique"
+								if batiments[i] == 0 or batiments[i] >=5:
+									msg_out = "Les batiments ne sont pas valide"
+								else:
+									pass
+						else:
+							msg_out = "Il manque des arguments !"
+
+
+
+
+
+
 
 				else:
 					msg_out = "Commande inconnue"

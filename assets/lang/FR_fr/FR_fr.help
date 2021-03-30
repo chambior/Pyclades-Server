@@ -9,3 +9,7 @@ join [numéro]|Prendre le contrôle d'un joueur, spécifié ou automatique.
 order|Affiche l'ordre dans lequel les joueurs doivent jouer.
 start <nombre de joueurs>|Démarre la partie avec le nombre de joueurs indiqué.
 stop|Arrête le serveur.
+
+moveTo <unité> <case>|Bouger une unité sur la case désigné.
+build <batiment> <case>|Construit le batiment spécifié sur la case désigné.
+city <islandID destination> bat/phil <typeBat1> <islandID bat 1> <typeBat2> <islandID bat 2> ...|Construit une ville si disponible.

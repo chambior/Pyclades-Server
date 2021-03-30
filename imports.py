@@ -248,6 +248,8 @@ class player:
 		self.id = new_id
 		self.money = new_money
 		self.active_god = 0 #0 - no one, 1 - Apoll, 2 - Athena, 3 - Ares, 4 - Poseidon, 5-Zeus, maybe more with DLCs
+		self.phil = 0
+		self.priest = 0
 
 
 for i in range(1,6):
