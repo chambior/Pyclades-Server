@@ -120,6 +120,8 @@ while server_live:
 					msg_out = "Vous avez ddos le serveur avec succes"
 					server_live = False
 
+				elif msg_in == "getCreatures":
+					msg_out = str(monster_active)
 
 				elif msg_in == "stop":
 					msg_out = "Fermeture du serveur"
